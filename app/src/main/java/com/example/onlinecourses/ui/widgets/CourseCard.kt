@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil3.compose.rememberAsyncImagePainter
 import com.example.onlinecourses.R
 import com.example.onlinecourses.common.duration
 import com.example.onlinecourses.common.mark
@@ -53,10 +54,10 @@ fun TopCourseCard(course: Course, navController: NavController) {
             .shadow(5.dp, RoundedCornerShape(10.dp))
             .background(colorScheme.background)
             .clip(RoundedCornerShape(10.dp))
-            .clickable { navController.navigate(Destinations.Course(-1)) }
+            .clickable { navController.navigate(Destinations.Course(course.id)) }
     ) {
         Image(
-            painter = painterResource(course.image),
+            painter = rememberAsyncImagePainter(course.image),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -93,7 +94,7 @@ fun ListCourseCard(course: Course, navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { navController.navigate(Destinations.Course(-1)) },
+            .clickable { navController.navigate(Destinations.Course(course.id)) },
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
@@ -111,7 +112,7 @@ fun ListCourseCard(course: Course, navController: NavController) {
             Text(text = "${course.learners}k Learners", fontSize = 12.sp)
         }
         Image(
-            painter = painterResource(course.image),
+            painter = rememberAsyncImagePainter(course.image),
             contentDescription = null,
             modifier = Modifier
                 .size(85.dp)
@@ -129,7 +130,7 @@ fun InProgressCourseCard(course: InProgressCourse, navController: NavController)
             .shadow(5.dp, RoundedCornerShape(17.dp))
             .background(colorScheme.background)
             .clip(RoundedCornerShape(17.dp))
-            .clickable { navController.navigate(Destinations.Course(-1)) }
+            .clickable { navController.navigate(Destinations.Course(course.course.id)) }
     ) {
         Spacer(Modifier.height(10.dp))
         Row(

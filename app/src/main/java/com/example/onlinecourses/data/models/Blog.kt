@@ -6,7 +6,7 @@ data class Blog(
     val author: String,
     val title: String,
     val text: String,
-    val image: Int,
+    val image: String,
     val date: LocalDate,
     val viewers: Float,
     val tag: String

@@ -8,3 +8,4 @@ data class Review(
     val mark: Int,
     val text: String
 )
+

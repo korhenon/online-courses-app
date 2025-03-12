@@ -20,10 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.ImageLoader
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.svg.SvgDecoder
 import com.example.onlinecourses.data.models.Category
 
 @Composable
@@ -51,10 +56,13 @@ fun CategoryCard(category: Category, onClick: () -> Unit, modifier: Modifier = M
             )
         }
         Spacer(Modifier.width(30.dp))
-        Image(
-            painter = painterResource(category.icon),
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(category.icon)
+                .decoderFactory(SvgDecoder.Factory())
+                .build(),
             contentDescription = null,
-            contentScale = ContentScale.FillHeight,
+            contentScale = ContentScale.Fit,
             modifier = Modifier.size(28.dp)
         )
     }

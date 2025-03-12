@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.rememberAsyncImagePainter
 import com.example.onlinecourses.R
 import com.example.onlinecourses.data.models.Blog
 
@@ -38,14 +39,14 @@ fun PopularBlogCard(blog: Blog, modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(10.dp))
     ) {
         Image(
-            painter = painterResource(blog.image),
+            painter = rememberAsyncImagePainter(blog.image),
             contentDescription = null,
             modifier = Modifier.size(121.dp),
             contentScale = ContentScale.Crop
         )
         Column(
             Modifier
-                .padding(start = 9.dp, top = 6.dp)
+                .padding(start = 9.dp, top = 6.dp).height(115.dp)
         ) {
             Text(
                 text = blog.author,
@@ -80,7 +81,7 @@ fun BlogCard(blog: Blog, modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(10.dp))
     ) {
         Image(
-            painter = painterResource(blog.image),
+            painter = rememberAsyncImagePainter(blog.image),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()

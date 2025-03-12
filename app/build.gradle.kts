@@ -65,6 +65,12 @@ dependencies {
     // Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
+    implementation("io.coil-kt.coil3:coil-svg:3.1.0")
 }
 
 kapt {

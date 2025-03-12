@@ -1,7 +1,6 @@
 package com.example.onlinecourses.ui.navigation
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 
 sealed class Destinations {
     @Serializable
@@ -9,6 +8,7 @@ sealed class Destinations {
 
     @Serializable
     data class Category(
+        val id: Int,
         val category: String
     )
 

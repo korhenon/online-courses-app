@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil3.compose.rememberAsyncImagePainter
 import com.example.onlinecourses.R
 import com.example.onlinecourses.common.duration
 import com.example.onlinecourses.common.mark
@@ -76,7 +77,7 @@ fun CourseScreen(navController: NavController, viewModel: CourseViewModel = hilt
                 val course = state.course!!
                 Spacer(Modifier.height(14.dp))
                 Image(
-                    painter = painterResource(course.image),
+                    painter = rememberAsyncImagePainter(course.image),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()

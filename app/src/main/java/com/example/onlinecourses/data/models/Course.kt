@@ -1,9 +1,10 @@
 package com.example.onlinecourses.data.models
 
 data class Course(
+    val id: Int,
     val name: String,
     val learners: Float,
-    val image: Int,
+    val image: String,
     val description: String,
     val level: String,
     val hasCompletionCertificate: Boolean,

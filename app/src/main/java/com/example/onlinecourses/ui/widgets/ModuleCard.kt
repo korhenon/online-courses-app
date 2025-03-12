@@ -47,7 +47,7 @@ fun ModuleCard(module: Module, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Lesson ${module.id}", fontSize = 12.sp, fontWeight = FontWeight.Medium)
+            Text(text = "Lesson ${module.number}", fontSize = 12.sp, fontWeight = FontWeight.Medium)
             Image(
                 painter = painterResource(R.drawable.ic_expand),
                 contentDescription = null,

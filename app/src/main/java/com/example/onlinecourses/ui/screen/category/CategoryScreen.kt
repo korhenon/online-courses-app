@@ -1,6 +1,7 @@
 package com.example.onlinecourses.ui.screen.category
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,13 +34,18 @@ import com.example.onlinecourses.ui.widgets.ListCourseCard
 fun CategoryScreen(navController: NavController, viewModel: CategoryViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     Scaffold { innerPaddings ->
-        Column(Modifier
-            .padding(innerPaddings)
-            .fillMaxWidth()
-            .padding(horizontal = 25.dp)) {
+        Column(
+            Modifier
+                .padding(innerPaddings)
+                .fillMaxWidth()
+                .padding(horizontal = 25.dp)
+        ) {
             Spacer(Modifier.height(10.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(painter = painterResource(R.drawable.ic_arrow_left), contentDescription = null)
+                Image(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    contentDescription = null,
+                    Modifier.clickable { navController.popBackStack() })
                 Spacer(Modifier.width(12.dp))
                 Text(text = state.category, fontSize = 18.sp, color = colorScheme.onSurface)
             }
