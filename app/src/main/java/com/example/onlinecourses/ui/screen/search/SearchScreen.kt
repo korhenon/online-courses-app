@@ -42,6 +42,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.onlinecourses.R
 import com.example.onlinecourses.ui.theme.OnlineCoursesTheme
 import com.example.onlinecourses.ui.widgets.ListCourseCard
+import com.example.onlinecourses.ui.widgets.NoInternet
+import com.example.onlinecourses.ui.widgets.Spinner
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -141,6 +143,12 @@ fun SearchScreen(navController: NavController, viewModel: SearchViewModel = hilt
                     }
                 }
             }
+        }
+        if (state.internetState.isLoading) {
+            Spinner()
+        }
+        if (state.internetState.isNoInternet) {
+            NoInternet()
         }
     }
 }

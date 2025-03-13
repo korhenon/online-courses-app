@@ -6,6 +6,7 @@ import com.example.onlinecourses.R
 import com.example.onlinecourses.common.BaseBlog
 import com.example.onlinecourses.data.models.Blog
 import com.example.onlinecourses.domain.CoursesRepository
+import com.example.onlinecourses.ui.utils.InternetState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,7 +25,20 @@ class BlogsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _state.update {
-                it.copy(blogs = repository.getBlogs())
+                it.copy(internetState = InternetState(isLoading = true))
+            }
+            val blogs = repository.getBlogs()
+            _state.update {
+                if (blogs == null) {
+                    it.copy(
+                        internetState = InternetState(isLoading = false, isNoInternet = true)
+                    )
+                } else {
+                    it.copy(
+                        blogs = blogs,
+                        internetState = InternetState(isLoading = false)
+                    )
+                }
             }
         }
     }

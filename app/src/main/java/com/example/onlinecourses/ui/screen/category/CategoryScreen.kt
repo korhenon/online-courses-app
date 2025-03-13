@@ -29,6 +29,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.onlinecourses.R
 import com.example.onlinecourses.ui.theme.OnlineCoursesTheme
 import com.example.onlinecourses.ui.widgets.ListCourseCard
+import com.example.onlinecourses.ui.widgets.NoInternet
+import com.example.onlinecourses.ui.widgets.Spinner
 
 @Composable
 fun CategoryScreen(navController: NavController, viewModel: CategoryViewModel = hiltViewModel()) {
@@ -56,6 +58,12 @@ fun CategoryScreen(navController: NavController, viewModel: CategoryViewModel = 
                     Spacer(Modifier.height(15.dp))
                 }
             }
+        }
+        if (state.internetState.isLoading) {
+            Spinner()
+        }
+        if (state.internetState.isNoInternet) {
+            NoInternet()
         }
     }
 }

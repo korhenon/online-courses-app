@@ -10,6 +10,7 @@ import com.example.onlinecourses.data.models.Blog
 import com.example.onlinecourses.data.models.Category
 import com.example.onlinecourses.data.models.Offer
 import com.example.onlinecourses.domain.CoursesRepository
+import com.example.onlinecourses.ui.utils.InternetState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -47,11 +48,23 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _state.update {
-                it.copy(
-                    courses = repository.getCourses(),
-                    categories = repository.getCategories(),
-                    blogs = repository.getBlogs().take(3)
-                )
+                it.copy(internetState = InternetState(isLoading = true))
+            }
+            val courses = repository.getCourses()
+            val categories = repository.getCategories()
+            val blogs = repository.getBlogs()
+            _state.update {
+                if (courses == null || categories == null || blogs == null) {
+                    it.copy(internetState = InternetState(isLoading = false, isNoInternet = true))
+                } else {
+                    it.copy(
+                        courses = courses.take(3),
+                        categories = categories,
+                        blogs = blogs.take(3),
+                        internetState = InternetState(isLoading = false)
+                    )
+                }
+
             }
         }
     }

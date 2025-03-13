@@ -28,6 +28,8 @@ import com.example.onlinecourses.R
 import com.example.onlinecourses.ui.theme.OnlineCoursesTheme
 import com.example.onlinecourses.ui.widgets.BlogCard
 import com.example.onlinecourses.ui.widgets.BottomNavigation
+import com.example.onlinecourses.ui.widgets.NoInternet
+import com.example.onlinecourses.ui.widgets.Spinner
 
 @Composable
 fun BlogsScreen(navController: NavController, viewModel: BlogsViewModel = hiltViewModel()) {
@@ -65,6 +67,12 @@ fun BlogsScreen(navController: NavController, viewModel: BlogsViewModel = hiltVi
                     Spacer(Modifier.height(10.dp))
                 }
             }
+        }
+        if (state.internetState.isLoading) {
+            Spinner()
+        }
+        if (state.internetState.isNoInternet) {
+            NoInternet()
         }
     }
 }

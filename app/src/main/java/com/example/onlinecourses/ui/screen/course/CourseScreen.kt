@@ -52,7 +52,9 @@ import com.example.onlinecourses.ui.theme.StarGray
 import com.example.onlinecourses.ui.theme.StarYellow
 import com.example.onlinecourses.ui.widgets.ListCourseCard
 import com.example.onlinecourses.ui.widgets.ModuleCard
+import com.example.onlinecourses.ui.widgets.NoInternet
 import com.example.onlinecourses.ui.widgets.ReviewCard
+import com.example.onlinecourses.ui.widgets.Spinner
 
 @Composable
 fun CourseScreen(navController: NavController, viewModel: CourseViewModel = hiltViewModel()) {
@@ -282,6 +284,12 @@ fun CourseScreen(navController: NavController, viewModel: CourseViewModel = hilt
                     }
                 }
             }
+        }
+        if (state.internetState.isLoading) {
+            Spinner()
+        }
+        if (state.internetState.isNoInternet) {
+            NoInternet()
         }
     }
 }

@@ -49,7 +49,9 @@ import com.example.onlinecourses.ui.theme.HomeGradient2
 import com.example.onlinecourses.ui.theme.OnlineCoursesTheme
 import com.example.onlinecourses.ui.widgets.BottomNavigation
 import com.example.onlinecourses.ui.widgets.CategoryCard
+import com.example.onlinecourses.ui.widgets.NoInternet
 import com.example.onlinecourses.ui.widgets.PopularBlogCard
+import com.example.onlinecourses.ui.widgets.Spinner
 import com.example.onlinecourses.ui.widgets.TopCourseCard
 
 @Composable
@@ -213,6 +215,12 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 Spacer(Modifier.width(5.dp))
             }
             Spacer(Modifier.height(20.dp))
+        }
+        if (state.internetState.isLoading) {
+            Spinner()
+        }
+        if (state.internetState.isNoInternet) {
+            NoInternet()
         }
     }
 }

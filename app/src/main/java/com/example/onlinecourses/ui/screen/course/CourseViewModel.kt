@@ -8,6 +8,7 @@ import androidx.navigation.toRoute
 import com.example.onlinecourses.common.BaseCourse
 import com.example.onlinecourses.domain.CoursesRepository
 import com.example.onlinecourses.ui.navigation.Destinations
+import com.example.onlinecourses.ui.utils.InternetState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,10 +27,24 @@ class CourseViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _state.update {
-                it.copy(
-                    course = repository.getCourseById(savedStateHandle.toRoute<Destinations.Course>().id),
-                    similar = repository.getCourses()
-                )
+                it.copy(internetState = InternetState(isLoading = true))
+            }
+            val course =
+                repository.getCourseById(savedStateHandle.toRoute<Destinations.Course>().id)
+            val similar = repository.getCourses()
+            _state.update {
+                if (course == null || similar == null) {
+                    it.copy(
+                        internetState = InternetState(isLoading = false, isNoInternet = true)
+                    )
+                } else {
+                    it.copy(
+                        course = course,
+                        similar = similar,
+                        internetState = InternetState(isLoading = false)
+                    )
+                }
+
             }
         }
     }

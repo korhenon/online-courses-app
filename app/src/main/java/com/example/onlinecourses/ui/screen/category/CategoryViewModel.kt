@@ -11,6 +11,7 @@ import com.example.onlinecourses.data.models.Course
 import com.example.onlinecourses.data.network.NetworkRepository
 import com.example.onlinecourses.domain.CoursesRepository
 import com.example.onlinecourses.ui.navigation.Destinations
+import com.example.onlinecourses.ui.utils.InternetState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,14 +27,23 @@ class CategoryViewModel @Inject constructor(
     private val route = savedStateHandle.toRoute<Destinations.Category>()
     private val _state = MutableStateFlow(
         CategoryState(
-            route.category
+            category = route.category
         )
     )
     val state get() = _state.asStateFlow()
+
     init {
         viewModelScope.launch {
             _state.update {
-                it.copy(courses = repository.getCoursesByCategory(route.id))
+                it.copy(internetState = InternetState(isLoading = true))
+            }
+            val courses = repository.getCoursesByCategory(route.id)
+            _state.update {
+                if (courses == null) {
+                    it.copy(internetState = InternetState(isLoading = false, isNoInternet = true))
+                } else {
+                    it.copy(courses = courses)
+                }
             }
         }
     }
